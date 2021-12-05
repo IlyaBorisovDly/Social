@@ -1,45 +1,26 @@
 package com.example.social.ui.mainscreen
 
-import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.social.model.RetrofitInstance
-import com.example.social.model.User
+import android.app.Application
+import androidx.lifecycle.*
+import com.example.social.model.*
 import kotlinx.coroutines.launch
-import retrofit2.HttpException
-import java.io.IOException
 
-class MainViewModel: ViewModel() {
+class MainViewModel(application: Application): AndroidViewModel(application) {
 
-    private var users = MutableLiveData<List<User>>()
+    private val _users = MutableLiveData<List<User>>()
+    val users: LiveData<List<User>> = _users
 
     init {
         loadUsers()
     }
 
-    fun getUsers(): LiveData<List<User>> {
-        return users
-    }
-
     private fun loadUsers() {
-        viewModelScope.launch {
-            val response = try {
-                RetrofitInstance.api.getUsers()
-            } catch (e: IOException) {
-                Log.d(TAG, "IOException")
-                return@launch
-            } catch (e: HttpException) {
-                Log.d(TAG, "HttpException")
-                return@launch
-            }
+        val api = RetrofitInstance.api
+        val userDao = AppDatabase.getInstance(getApplication()).userDao()
+        val repository = Repository(api, userDao)
 
-            if (response.isSuccessful && response.body() != null) {
-                users.value = response.body()!!
-            } else {
-                Log.d(TAG, "Response is not successful")
-            }
+        viewModelScope.launch {
+            _users.value = repository.getUsers()
         }
     }
 }

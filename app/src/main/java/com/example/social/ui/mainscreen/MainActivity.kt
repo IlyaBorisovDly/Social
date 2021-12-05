@@ -22,7 +22,8 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         val viewModel: MainViewModel by viewModels()
-        viewModel.getUsers().observe(this, { users ->
+
+        viewModel.users.observe(this, { users ->
             setupRecycler(users)
         })
     }

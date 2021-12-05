@@ -6,12 +6,18 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.viewModels
+import androidx.core.content.contentValuesOf
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.social.databinding.ActivityMainBinding
 import com.example.social.databinding.FragmentUserFriendsBinding
 import com.example.social.model.Friend
 import com.example.social.model.User
 import com.example.social.ui.CallbackListener
 import com.example.social.ui.MainAdapter
+import com.example.social.ui.mainscreen.MainViewModel
 
 class UserFriendsFragment(private val userFriends: List<Friend>) : Fragment() {
 
@@ -24,8 +30,14 @@ class UserFriendsFragment(private val userFriends: List<Friend>) : Fragment() {
     ): View {
         _binding = FragmentUserFriendsBinding.inflate(inflater, container, false)
 
-//        userFriends.forEach { getUserById }
-//        setupRecycler()
+        val viewModel = ViewModelProvider(
+            this,
+            UserDetailsViewModelFactory(requireActivity().application, userFriends)
+        )[UserDetailsViewModel::class.java]
+
+        viewModel.users.observe(this, { users ->
+            setupRecycler(users)
+        })
 
         return binding.root
     }

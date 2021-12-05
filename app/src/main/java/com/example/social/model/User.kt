@@ -1,10 +1,16 @@
 package com.example.social.model
 
 import android.os.Parcelable
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import androidx.room.TypeConverter
+import androidx.room.TypeConverters
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
+@Entity(tableName = "users")
 data class User(
+    @PrimaryKey
     val id: Int,
     val guid: String,
     val isActive: Boolean,
