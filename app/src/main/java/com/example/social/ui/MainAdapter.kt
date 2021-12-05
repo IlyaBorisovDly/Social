@@ -7,9 +7,10 @@ import com.example.social.R
 import com.example.social.databinding.ItemUserBinding
 import com.example.social.model.User
 
-class MainScreenAdapter(
-    private val users: List<User>
-): RecyclerView.Adapter<MainScreenAdapter.UserViewHolder>() {
+class MainAdapter(
+    private val users: List<User>,
+    private val callbackListener: CallbackListener
+): RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val itemBinding =
@@ -26,7 +27,7 @@ class MainScreenAdapter(
 
     override fun getItemCount() = users.size
 
-    class UserViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
+    inner class UserViewHolder(private val binding: ItemUserBinding): RecyclerView.ViewHolder(binding.root) {
 
         fun bind(user: User) {
             val indicator = getIndicatorByActive(user.isActive)
@@ -36,6 +37,10 @@ class MainScreenAdapter(
                 .setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, indicator, 0)
 
             binding.textViewUserEmail.text = user.email
+
+            binding.cardViewUser.setOnClickListener {
+                callbackListener.onItemClicked(user)
+            }
         }
 
         private fun getIndicatorByActive(isActive: Boolean): Int {

@@ -13,7 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Social">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".ui.userdetails.UserDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.mainscreen.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

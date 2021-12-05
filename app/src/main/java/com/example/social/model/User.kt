@@ -1,5 +1,9 @@
 package com.example.social.model
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class User(
     val id: Int,
     val guid: String,
@@ -20,4 +24,4 @@ data class User(
     val tags: List<String>,
     val friends: List<Friend>,
     val favoriteFruit: String
-)
+): Parcelable

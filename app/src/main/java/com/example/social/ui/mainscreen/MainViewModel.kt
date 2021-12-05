@@ -1,4 +1,4 @@
-package com.example.social.ui
+package com.example.social.ui.mainscreen
 
 import android.util.Log
 import androidx.lifecycle.LiveData
