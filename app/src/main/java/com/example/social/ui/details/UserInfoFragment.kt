@@ -1,4 +1,4 @@
-package com.example.social.ui.userdetails
+package com.example.social.ui.details
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.social.databinding.FragmentUserInfoBinding
-import com.example.social.model.User
+import com.example.social.model.entities.User
 
 class UserInfoFragment(private val user: User): Fragment() {
 

@@ -1,16 +1,16 @@
-package com.example.social.ui
+package com.example.social.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.social.R
 import com.example.social.databinding.ItemUserBinding
-import com.example.social.model.User
+import com.example.social.model.entities.User
 
-class MainAdapter(
+class UsersAdapter(
     private val users: List<User>,
-    private val callbackListener: CallbackListener
-): RecyclerView.Adapter<MainAdapter.UserViewHolder>() {
+    private val listener: UsersFragment.CallbackListener
+): RecyclerView.Adapter<UsersAdapter.UserViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val itemBinding =
@@ -39,7 +39,7 @@ class MainAdapter(
             binding.textViewUserEmail.text = user.email
 
             binding.cardViewUser.setOnClickListener {
-                callbackListener.onItemClicked(user)
+                listener.onItemClick(user)
             }
         }
 

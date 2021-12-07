@@ -1,6 +1,7 @@
-package com.example.social.model
+package com.example.social.model.db
 
 import androidx.room.TypeConverter
+import com.example.social.model.entities.Friend
 
 class Converters {
 

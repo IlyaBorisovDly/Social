@@ -1,4 +1,4 @@
-package com.example.social.model
+package com.example.social.model.entities
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

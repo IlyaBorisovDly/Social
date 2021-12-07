@@ -1,10 +1,9 @@
-package com.example.social.model
+package com.example.social.model.entities
 
 import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import androidx.room.TypeConverter
-import androidx.room.TypeConverters
+import com.example.social.model.entities.Friend
 import kotlinx.parcelize.Parcelize
 
 @Parcelize

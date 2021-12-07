@@ -1,8 +1,11 @@
-package com.example.social.ui.mainscreen
+package com.example.social.viewmodel
 
 import android.app.Application
 import androidx.lifecycle.*
-import com.example.social.model.*
+import com.example.social.model.api.RetrofitInstance
+import com.example.social.model.db.UsersDatabase
+import com.example.social.model.entities.User
+import com.example.social.model.repositories.Repository
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
@@ -14,9 +17,19 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         loadUsers()
     }
 
+    fun getUserById(id: Int): User? {
+        users.value?.forEach { user ->
+            if (user.id == id) {
+                return user
+            }
+        }
+
+        return null
+    }
+
     private fun loadUsers() {
         val api = RetrofitInstance.api
-        val userDao = AppDatabase.getInstance(getApplication()).userDao()
+        val userDao = UsersDatabase.getInstance(getApplication()).userDao()
         val repository = Repository(api, userDao)
 
         viewModelScope.launch {
