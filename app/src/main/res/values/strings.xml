@@ -3,12 +3,13 @@
 
     <string name="name">Имя</string>
     <string name="email">Email</string>
-    <string name="favourite_fruit">Любимый фрукт</string>
     <string name="company">Компания</string>
     <string name="phone">Телефон</string>
     <string name="address">Адрес</string>
     <string name="coordinates">Координаты</string>
     <string name="registered">Зарегистрирован</string>
     <string name="about">О себе</string>
+    <string name="eye_color">Цвет глаз</string>
+    <string name="favourite_fruit">Любимый фрукт</string>
 
 </resources>

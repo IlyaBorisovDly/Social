@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.social.databinding.FragmentUserInfoBinding
+import com.example.social.model.entities.EyeColor
 import com.example.social.model.entities.User
 
 class UserInfoFragment(private val user: User): Fragment() {
@@ -30,8 +31,6 @@ class UserInfoFragment(private val user: User): Fragment() {
     }
 
     private fun bindUserInfo() {
-        val coordinates = "${user.latitude}, ${user.longitude}"
-
         with(binding) {
             textViewName.text = user.name
             textViewAge.text = user.age.toString()
@@ -39,9 +38,13 @@ class UserInfoFragment(private val user: User): Fragment() {
             textViewUserMail.text = user.email
             textViewUserPhone.text = user.phone
             textViewUserAddress.text = user.address
-            textViewUserCoordinates.text = coordinates
-            textViewUserRegistration.text = user.registered
+            textViewUserCoordinates.text = user.getCoordinates()
+            textViewUserRegistration.text = user.getFormattedRegistrationDate()
+            imageViewEyeColor.setImageResource(user.getEyeColorSource())
+            imageViewFavouriteFruit.setImageResource(user.getFavouriteFruitSource())
             textViewUserAbout.text = user.about
         }
     }
+
+
 }
