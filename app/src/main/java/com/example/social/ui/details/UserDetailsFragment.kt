@@ -5,13 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.ViewModelProvider
 import com.example.social.databinding.FragmentUserDetailsBinding
 import com.example.social.model.entities.User
 import com.example.social.viewmodel.MainViewModel
 import com.google.android.material.tabs.TabLayoutMediator
 
-private const val USER_ARGUMENT = "user"
+const val USER_ARGUMENT = "user"
 
 class UserDetailsFragment: Fragment() {
 
@@ -30,10 +30,9 @@ class UserDetailsFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val viewModel: MainViewModel by viewModels()
+        val viewModel = ViewModelProvider(requireActivity())[MainViewModel::class.java]
 
-        arguments?.takeIf { it.containsKey(USER_ARGUMENT) }?.apply {
-            val user = getParcelable<User>(USER_ARGUMENT)!!
+        arguments?.getParcelable<User>(USER_ARGUMENT)?.let { user ->
             val friends = mutableListOf<User>()
 
             user.friends.forEach {
@@ -43,7 +42,10 @@ class UserDetailsFragment: Fragment() {
 
             val pagerAdapter = PagerAdapter(this@UserDetailsFragment, user, friends)
 
-            binding.viewPager.adapter = pagerAdapter
+            binding.viewPager.apply {
+                adapter = pagerAdapter
+                getChildAt(0).overScrollMode = View.OVER_SCROLL_NEVER
+            }
 
             TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
                 val tabNames = listOf("Информация", "Друзья")
@@ -52,8 +54,23 @@ class UserDetailsFragment: Fragment() {
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+        binding.tabLayout.getTabAt(0)?.select()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+
+        fun newInstance(user: User) =
+            UserDetailsFragment().apply {
+                arguments = Bundle().apply {
+                    putParcelable(USER_ARGUMENT, user)
+                }
+            }
     }
 }

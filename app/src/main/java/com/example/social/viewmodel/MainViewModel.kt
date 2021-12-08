@@ -1,6 +1,7 @@
 package com.example.social.viewmodel
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.*
 import com.example.social.model.api.RetrofitInstance
 import com.example.social.model.db.UsersDatabase
@@ -9,6 +10,10 @@ import com.example.social.model.repositories.Repository
 import kotlinx.coroutines.launch
 
 class MainViewModel(application: Application): AndroidViewModel(application) {
+
+    private val api = RetrofitInstance.api
+    private val userDao = UsersDatabase.getInstance(getApplication()).userDao()
+    private val repository = Repository(api, userDao)
 
     private val _users = MutableLiveData<List<User>>()
     val users: LiveData<List<User>> = _users
@@ -27,11 +32,15 @@ class MainViewModel(application: Application): AndroidViewModel(application) {
         return null
     }
 
-    private fun loadUsers() {
-        val api = RetrofitInstance.api
-        val userDao = UsersDatabase.getInstance(getApplication()).userDao()
-        val repository = Repository(api, userDao)
+    fun updateUsers() {
+        viewModelScope.launch {
+            repository.updateUsers()?.let {
+                _users.value = it
+            }
+        }
+    }
 
+    private fun loadUsers() {
         viewModelScope.launch {
             _users.value = repository.getUsers()
         }

@@ -32,6 +32,18 @@ data class User(
     val favoriteFruit: String
 ): Parcelable {
 
+    fun getFormattedAge(): String {
+        return if (age % 100 in 11..14) {
+            "$age лет"
+        } else if (age % 10 == 1) {
+            "$age год"
+        } else if (age % 10 == 0 || age % 10 in 5..9) {
+            "$age лет"
+        } else {
+            "$age года"
+        }
+    }
+
     fun getCoordinates(): String {
         return "$latitude, $longitude"
     }

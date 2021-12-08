@@ -9,10 +9,8 @@ import com.example.social.model.entities.User
 import com.example.social.ui.details.UserDetailsFragment
 import com.example.social.ui.list.UsersFragment
 import com.example.social.viewmodel.MainViewModel
-import java.util.ArrayList
 
 const val USER_ARGUMENT = "user"
-const val USERS_ARGUMENT = "usersList"
 
 class MainActivity : AppCompatActivity(), UsersFragment.CallbackListener {
 
@@ -24,33 +22,20 @@ class MainActivity : AppCompatActivity(), UsersFragment.CallbackListener {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        viewModel.users.observe(this, { users ->
-            val transaction = supportFragmentManager.beginTransaction()
-            val usersFragment = UsersFragment()
-            val bundle = Bundle()
-
-            bundle.putParcelableArrayList(USERS_ARGUMENT, users as ArrayList<User>)
-            usersFragment.arguments = bundle
-
-            transaction
-                .replace(binding.fragmentContainerView.id, usersFragment)
-                .commit()
-        })
+        if (savedInstanceState == null) {
+            launchUsersFragment()
+        }
     }
 
     override fun onItemClick(user: User) {
-        openUserDetailsFragment(user)
+        launchUserDetailsFragment(user)
     }
 
-    private fun openUserDetailsFragment(user: User) {
-        val transaction = supportFragmentManager.beginTransaction()
-        val userDetailsFragment = UserDetailsFragment()
-        val bundle = Bundle()
-
-        bundle.putParcelable(USER_ARGUMENT, user)
-        userDetailsFragment.arguments = bundle
-
+    private fun launchUserDetailsFragment(user: User) {
         if (user.isActive) {
+            val userDetailsFragment = UserDetailsFragment.newInstance(user)
+            val transaction = supportFragmentManager.beginTransaction()
+
             transaction
                 .addToBackStack("Users fragment")
                 .replace(binding.fragmentContainerView.id, userDetailsFragment)
@@ -58,6 +43,17 @@ class MainActivity : AppCompatActivity(), UsersFragment.CallbackListener {
         } else {
             Toast.makeText(this, "Пользователь не активен", Toast.LENGTH_SHORT).show()
         }
+    }
+
+    private fun launchUsersFragment() {
+        viewModel.users.observe(this, { users ->
+            val usersFragment = UsersFragment.newInstance(users)
+            val transaction = supportFragmentManager.beginTransaction()
+
+            transaction
+                .replace(binding.fragmentContainerView.id, usersFragment)
+                .commit()
+        })
     }
 }
 

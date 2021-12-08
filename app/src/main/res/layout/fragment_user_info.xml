@@ -161,10 +161,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:autoLink="email"
             android:textColor="@color/black"
+            android:textColorLink="@color/blue"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textViewUserCompany"
             app:layout_constraintTop_toBottomOf="@+id/textViewUserCompany"
+            tools:ignore="TouchTargetSizeCheck"
             tools:text="aishavelasquez@bugsall.com" />
 
         <TextView
@@ -172,10 +175,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
+            android:autoLink="phone"
             android:textColor="@color/black"
+            android:textColorLink="@color/blue"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textViewUserMail"
             app:layout_constraintTop_toBottomOf="@+id/textViewUserMail"
+            tools:ignore="TouchTargetSizeCheck"
             tools:text="+1 (906) 447-2711" />
 
         <TextView
@@ -197,7 +203,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:textColor="@color/black"
+            android:textColor="@color/blue"
             android:textSize="16sp"
             app:layout_constraintStart_toStartOf="@+id/textViewUserAddress"
             app:layout_constraintTop_toBottomOf="@+id/textViewUserAddress"
@@ -223,7 +229,7 @@
             app:layout_constraintStart_toStartOf="@+id/textViewUserRegistration"
             app:layout_constraintTop_toBottomOf="@+id/textViewUserRegistration"
             tools:ignore="ImageContrastCheck"
-            tools:src="@drawable/ic_eye_color_blue"/>
+            tools:src="@drawable/ic_eye_color_blue" />
 
         <ImageView
             android:id="@+id/imageViewFavouriteFruit"
@@ -244,7 +250,7 @@
             android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="@+id/textViewAbout"
             app:layout_constraintTop_toBottomOf="@+id/textViewAbout"
-            tools:text="@tools:sample/lorem/random"/>
+            tools:text="@tools:sample/lorem/random" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
