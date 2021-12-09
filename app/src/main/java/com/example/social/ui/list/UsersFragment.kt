@@ -1,6 +1,7 @@
 package com.example.social.ui.list
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -61,8 +62,10 @@ class UsersFragment: Fragment() {
             adapter = UsersAdapter(users, listener)
         }
     }
-    
+
     companion object {
+
+        @JvmStatic
         fun newInstance(users: List<User>) =
             UsersFragment().apply {
                 arguments = Bundle().apply {

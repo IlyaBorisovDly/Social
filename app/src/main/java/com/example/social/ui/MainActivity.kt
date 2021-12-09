@@ -10,8 +10,6 @@ import com.example.social.ui.details.UserDetailsFragment
 import com.example.social.ui.list.UsersFragment
 import com.example.social.viewmodel.MainViewModel
 
-const val USER_ARGUMENT = "user"
-
 class MainActivity : AppCompatActivity(), UsersFragment.CallbackListener {
 
     private val viewModel: MainViewModel by viewModels()

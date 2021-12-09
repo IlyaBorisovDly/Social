@@ -1,6 +1,5 @@
 package com.example.social.model.repositories
 
-import android.util.Log
 import com.example.social.model.api.UsersApi
 import com.example.social.model.db.UsersDao
 import com.example.social.model.entities.User

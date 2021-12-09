@@ -17,6 +17,7 @@ abstract class UsersDatabase: RoomDatabase() {
 
         private var instance: UsersDatabase? = null
 
+        @JvmStatic
         fun getInstance(context: Context): UsersDatabase {
             return instance ?: synchronized(this) {
                 instance ?: buildDatabase(context).also { instance = it }

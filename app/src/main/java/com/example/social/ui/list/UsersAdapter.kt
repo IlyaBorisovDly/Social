@@ -2,6 +2,7 @@ package com.example.social.ui.list
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.social.R
 import com.example.social.databinding.ItemUserBinding
@@ -32,15 +33,20 @@ class UsersAdapter(
         fun bind(user: User) {
             val indicator = getIndicatorByActive(user.isActive)
 
-            binding.textViewUserName.text = user.name
-            binding.textViewUserName
-                .setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, indicator, 0)
+            with(binding) {
+                textViewUserName.text = user.name
+                textViewUserName.setDrawableEnd(indicator)
+                textViewUserEmail.text = user.email
 
-            binding.textViewUserEmail.text = user.email
-
-            binding.cardViewUser.setOnClickListener {
-                listener.onItemClick(user)
+                cardViewUser.setOnClickListener {
+                    listener.onItemClick(user)
+                }
             }
+
+        }
+
+        private fun TextView.setDrawableEnd(source: Int) {
+            setCompoundDrawablesRelativeWithIntrinsicBounds(0, 0, source, 0)
         }
 
         private fun getIndicatorByActive(isActive: Boolean): Int {

@@ -94,6 +94,7 @@ class UserInfoFragment: Fragment() {
 
     companion object {
 
+        @JvmStatic
         fun newInstance(user: User) =
             UserInfoFragment().apply {
                 arguments = Bundle().apply {
